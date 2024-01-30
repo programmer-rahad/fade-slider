@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fade Slider (Sunday 20 March 2022)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        .custom--fade--slider {
+            position: relative;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 3rem;
+        }
+
+        .custom--fade--slider .slider__item {
+            display: none;
+        }
+        .custom--fade--slider .slider__item img {
+            width: 100%;
+            max-height: 70vh;
+            object-fit: cover;
+        }
+
+        .custom--fade--slider .slider__item--active {
+            display: block;
+            animation-name: custom-fade-in;
+            animation-duration: 1s;
+        }
+
+        @keyframes custom-fade-in {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .custom--fade--slider .slider__dots {
+            text-align: center;
+            line-height: 0;
+            padding: 25px 0;
+            position: absolute;
+            width: 100%;
+        }
+
+        .custom--fade--slider .slider__dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #888585e7;
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .custom--fade--slider .slider__dot--active {
+            background-color: #fff;
+            animation-name: custom-fade-in;
+            animation-duration: 0.5s;
+            border: 1px solid #ddd
+        }
+
+        @keyframes custom-fade-in {
+            from {
+                opacity: 0.5;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .custom--fade--slider .slider__arrows {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+        }
+
+        .custom--fade--slider .slider__arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 35px;
+            background-color: #ddd;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* .custom--fade--slider .slider__arrow--active, */
+        .custom--fade--slider .slider__arrow:hover{
+            background-color: #a19898;
+            color: #fff;
+        }
+    </style>
+
+    <!-- SCSS Code -->
+    <!-- 
+    .custom--fade--slider {
+        position: relative;
+        .slider__item {
+          display: none;
+          img {
+            width: 100%; 
+          }
+          &--active {
+            display: block;
+            animation-name: custom-fade-in;
+            animation-duration: 1s;
+            @keyframes custom-fade-in {
+              from {
+                opacity: 0;
+              }
+              to {
+                opacity: 1;
+              }
+            }
+          }
+        }
+        .slider__dots {
+          text-align: center;
+          line-height: 0;
+          padding: 25px 0;
+          position: absolute;
+          width: 100%;
+        }
+        .slider__dot {
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          background-color: red;
+          display: inline-block;
+          margin: 0 5px;
+          cursor: pointer;
+          &--active {
+            background-color: #fff;
+            animation-name: custom-fade-in;
+            animation-duration: 0.5s;
+            @keyframes custom-fade-in {
+              from {
+                opacity: 0.5;
+              }
+              to {
+                opacity: 1;
+              }
+            }
+          }
+        }
+        .slider__arrows {
+          display: flex;
+          justify-content: space-between;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 100%;
+        }
+        .slider__arrow {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 50px;
+          height: 35px;
+          background-color: #ddd;
+          font-weight: 700;
+          cursor: pointer;
+          &:hover,
+          &--active {
+            background-color: green;
+            color: #fff;
+          }
+        }
+      } 
+    -->
+</head>
+
+<body>
+    <div class="custom--fade--slider first-slider">
+        <div class="slider__items">
+            <div class="slider__item slider__item--active">
+                <div class="slider__item__content">
+                    <img src="https://images.unsplash.com/photo-1469521669194-babb45599def" alt="">
+                </div>
+            </div>
+            <div class="slider__item">
+                <div class="slider__item__content">
+                    <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716" alt="">
+                </div>
+            </div>
+            <div class="slider__item">
+                <div class="slider__item__content">
+                    <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e" alt="">
+                </div>
+            </div>
+            <div class="slider__item">
+                <div class="slider__item__content">
+                    <img src="https://images.unsplash.com/photo-1473654729523-203e25dfda10" alt="">
+                </div>
+            </div>  
+        </div>
+    </div>
+    <br>
+    <br>
+    <br> 
+    <br>  
+    <script>
+        // Custom Fade Slider
+        function customFadeSlider(sliderWrapper) {
+
+            if (!sliderWrapper) return;
+
+            let slideItems = [...sliderWrapper.querySelectorAll('.slider__item')];
+            let currentIndex = 0;
+
+            function showSlideItem() {
+                slideItems.forEach(function (item, i) {
+                    item.classList.remove('slider__item--active');
+                    sliderDots[i].classList.remove('slider__dot--active');
+                });
+                slideItems[currentIndex].classList.add('slider__item--active');
+                sliderDots[currentIndex].classList.add('slider__dot--active');
+            }
+
+            // Append Dots
+            const dotsWrapper = document.createElement('div');
+            dotsWrapper.classList.add('slider__dots');
+            dotsWrapper.innerHTML = `<span class="slider__dot"></span>`.repeat(slideItems.length);
+
+            dotsWrapper.firstElementChild.classList.add('slider__dot--active');
+            sliderWrapper.append(dotsWrapper)
+
+            // Append Arrows
+            const arrowsWrapper = document.createElement('div')
+            arrowsWrapper.classList.add('slider__arrows');
+            arrowsWrapper.innerHTML = `
+                <span class="slider__arrow slider__arrow--left">
+                        <i class="fas fa-angle-left"></i>
+                </span>
+                <span class="slider__arrow slider__arrow--right">
+                    <i class="fas fa-angle-right"></i>
+                </span>
+            `;
+            sliderWrapper.append(arrowsWrapper);
+
+            // Click Event on Dots
+            const sliderDots = sliderWrapper.querySelectorAll('.slider__dot');
+            sliderDots.forEach(function (dot, i) {
+                dot.addEventListener('click', function () {
+                    sliderDots.forEach((dot, i) => {
+                        if (dot === this) {
+                            currentIndex = i;
+                        }
+                    });
+                    showSlideItem();
+                })
+            });
+
+            // Click Event on Arrows
+            const sliderArrows = document.querySelectorAll('.custom--fade--slider .slider__arrow');
+            sliderArrows.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    if (button.classList.contains('slider__arrow--left')) {
+                        currentIndex = !currentIndex ? slideItems.length - 1 : --currentIndex;
+                        this.nextElementSibling.classList.remove('slider__arrow--active')
+                    } else {
+                        currentIndex = (currentIndex === slideItems.length - 1) ? 0 : ++currentIndex;
+                        this.previousElementSibling.classList.remove('slider__arrow--active');
+                    }
+                    showSlideItem();
+                    this.classList.add('slider__arrow--active')
+                })
+            });
+            setInterval(() => {
+                sliderArrows[1].click();
+            }, 2500)
+        }
+ 
+        const sliderOne = document.querySelector('.first-slider'); 
+        customFadeSlider(sliderOne); 
+    </script>
+</body>
+
+</html>
